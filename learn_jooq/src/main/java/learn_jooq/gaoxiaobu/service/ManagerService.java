@@ -26,4 +26,6 @@ public interface ManagerService {
     //批量删除
     int deleteBatch(List<Integer> ids);
 
+    boolean insertBatch(List<S1User> s1UserList);
+
 }

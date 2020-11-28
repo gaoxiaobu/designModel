@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.*;
 
 import static learn_jooq.gaoxiaobu.generated.tables.S1User.S1_USER;
@@ -114,5 +115,20 @@ public class ManagerServiceImpl implements ManagerService {
         return DSL.using (connection).batchDelete ((Collection<? extends UpdatableRecord<?>>) recordList).execute ().length;
     }
 
-
+    @Override
+    public boolean insertBatch(List<S1User> s1UserList) {
+        S1User s1User = new S1User ();
+        ArrayList<S1User> s1UsersList = new ArrayList<> ();
+        for (int i=0;i<10;i++){
+            s1User.setId (i);
+            s1User.setUsername ("盖茨比");
+            s1User.setEmail ("gaoli3@bonc.com.cn");
+            s1User.setAddress ("帝都");
+            s1User.setCreateTime (LocalDateTime.now ());
+            s1User.setUpdateTime (LocalDateTime.now ());
+            s1UserList.add (s1User);
+        }
+        DSL.using (connection).batchInsert ((Collection<? extends TableRecord<?>>) s1UsersList).execute ();
+        return true;
+    }
 }
