@@ -24,7 +24,7 @@ public interface ManagerService {
     List<S1User> s1_userListAndPage(int page,int offSet);
 
     //批量删除
-    int deleteBatch(List<Integer> ids);
+    int deleteDetach(List<Integer> ids);
 
     //批量新增
     boolean insertBatch(List<S1User> s1UserList);

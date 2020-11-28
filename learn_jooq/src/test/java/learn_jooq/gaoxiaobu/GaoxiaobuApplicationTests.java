@@ -9,14 +9,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @RunWith (SpringRunner.class)
 @SpringBootTest(classes = {GaoxiaobuApplication.class})
 class GaoxiaobuApplicationTests {
-
+    
     @Autowired
     private ManagerService managerService;
 
@@ -26,13 +25,14 @@ class GaoxiaobuApplicationTests {
     void contextLoads() {
 
         /*managerService.update (new S1User (3,"高小布","1282314694@qq.com","北京",now,now));*/
-        /*managerService.save (new S1User (3,"高小布","1282314694@qq.com","帝都",now,now));*/
+
+        /*
+
+        managerService.save (new S1User (3,"高小布","1282314694@qq.com","帝都",now,now));*/
+
         //managerService.updateDetach (new S1User (3,"高小布","gaoxiaobu@com.bonc.cn","帝都",now,now));
-        //managerService.delete (3);
-        List<Integer> ids = new ArrayList<>();
-        ids.add (1);
-        ids.add (2);
-        managerService.deleteBatch (ids);
+
+        managerService.delete (3);
 
         List<S1User> s1Users = managerService.s_1_userList ();
         for (S1User s1User: s1Users) {
