@@ -114,5 +114,8 @@ public class ManagerServiceImpl implements ManagerService {
         return DSL.using (connection).batchDelete ((Collection<? extends UpdatableRecord<?>>) recordList).execute ().length;
     }
 
-
+    @Override
+    public boolean insertBatch(List<S1User> s1UserList) {
+        return false;
+    }
 }
