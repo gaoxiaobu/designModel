@@ -108,7 +108,7 @@ public class ManagerServiceImpl implements ManagerService {
 
     @Override
     public int deleteDetach(List<Integer> ids) {
-        return 0;
+        return 1;
     }
 
 
