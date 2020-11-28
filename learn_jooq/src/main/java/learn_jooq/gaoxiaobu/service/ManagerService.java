@@ -24,6 +24,6 @@ public interface ManagerService {
     List<S1User> s1_userListAndPage(int page,int offSet);
 
     //批量删除
-    int deleteDetach(List<Integer> ids);
+    int deleteBatch(List<Integer> ids);
 
 }

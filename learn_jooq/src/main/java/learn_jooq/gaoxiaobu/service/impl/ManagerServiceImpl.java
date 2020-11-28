@@ -3,10 +3,7 @@ package learn_jooq.gaoxiaobu.service.impl;
 import learn_jooq.gaoxiaobu.generated.tables.pojos.S1User;
 import learn_jooq.gaoxiaobu.generated.tables.records.S1UserRecord;
 import learn_jooq.gaoxiaobu.service.ManagerService;
-import org.jooq.Batch;
-import org.jooq.Condition;
-import org.jooq.DSLContext;
-import org.jooq.UpdateQuery;
+import org.jooq.*;
 import org.jooq.impl.DSL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,8 +11,7 @@ import org.springframework.stereotype.Service;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import static learn_jooq.gaoxiaobu.generated.tables.S1User.S1_USER;
 
@@ -107,8 +103,15 @@ public class ManagerServiceImpl implements ManagerService {
     }
 
     @Override
-    public int deleteDetach(List<Integer> ids) {
-        return 1;
+    public int deleteBatch(List<Integer> ids) {
+        S1User s1User = new S1User ();
+        List<S1User> recordList = new ArrayList<>();
+        for (int i = 1;i<ids.size ();i++){
+            s1User.setId (ids.get (i));
+            recordList.add(s1User);
+        }
+
+        return DSL.using (connection).batchDelete ((Collection<? extends UpdatableRecord<?>>) recordList).execute ().length;
     }
 
 
