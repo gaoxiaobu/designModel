@@ -52,6 +52,11 @@ public class ManagerServiceImpl implements ManagerService {
         return rs;
     }
 
+    /**
+     * 保存当前用户信息
+     * @param user
+     * @return
+     */
     @Override
     public String save(S1User user) {
         dslContext
