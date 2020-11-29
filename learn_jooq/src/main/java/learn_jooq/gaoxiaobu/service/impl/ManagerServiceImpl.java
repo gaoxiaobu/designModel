@@ -3,10 +3,7 @@ package learn_jooq.gaoxiaobu.service.impl;
 import learn_jooq.gaoxiaobu.generated.tables.pojos.S1User;
 import learn_jooq.gaoxiaobu.generated.tables.records.S1UserRecord;
 import learn_jooq.gaoxiaobu.service.ManagerService;
-import org.jooq.Batch;
-import org.jooq.Condition;
-import org.jooq.DSLContext;
-import org.jooq.UpdateQuery;
+import org.jooq.*;
 import org.jooq.impl.DSL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -115,4 +112,25 @@ public class ManagerServiceImpl implements ManagerService {
     public boolean insertBatch(List<S1User> s1UserList) {
         return false;
     }
+
+    @Override
+    public S1User selectOne(int id) {
+        Result<Record1<Integer>> fetch = DSL.using (connection).selectOne ().from (S1_USER).where (S1_USER.ID.eq (id)).fetch ();
+
+        List<S1User> values = (List<S1User>) fetch.getValues (0);
+
+        S1User s1User1 = values.get (0);
+
+        for (S1User s1User:values) {
+            System.out.println(s1User.getUsername ());
+            System.out.println(s1User.getAddress ());
+            System.out.println(s1User.getCreateTime ());
+            System.out.println(s1User.getUpdateTime ());
+        }
+
+        return s1User1;
+
+    }
+
+
 }

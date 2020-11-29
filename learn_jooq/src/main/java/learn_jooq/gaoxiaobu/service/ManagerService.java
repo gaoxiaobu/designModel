@@ -29,4 +29,6 @@ public interface ManagerService {
     //批量新增
     boolean insertBatch(List<S1User> s1UserList);
 
+    S1User selectOne(int id);
+
 }
