@@ -11,7 +11,8 @@ import org.springframework.stereotype.Service;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import static learn_jooq.gaoxiaobu.generated.tables.S1User.S1_USER;
 
@@ -103,19 +104,33 @@ public class ManagerServiceImpl implements ManagerService {
     }
 
     @Override
-    public int deleteBatch(List<Integer> ids) {
-        S1User s1User = new S1User ();
-        List<S1User> recordList = new ArrayList<>();
-        for (int i = 1;i<ids.size ();i++){
-            s1User.setId (ids.get (i));
-            recordList.add(s1User);
-        }
-
-        return DSL.using (connection).batchDelete ((Collection<? extends UpdatableRecord<?>>) recordList).execute ().length;
+    public int deleteDetach(List<Integer> ids) {
+        return 1;
     }
 
     @Override
     public boolean insertBatch(List<S1User> s1UserList) {
         return false;
     }
+
+    @Override
+    public S1User selectOne(int id) {
+        Result<Record1<Integer>> fetch = DSL.using (connection).selectOne ().from (S1_USER).where (S1_USER.ID.eq (id)).fetch ();
+
+        List<S1User> values = (List<S1User>) fetch.getValues (0);
+
+        S1User s1User1 = values.get (0);
+
+        for (S1User s1User:values) {
+            System.out.println(s1User.getUsername ());
+            System.out.println(s1User.getAddress ());
+            System.out.println(s1User.getCreateTime ());
+            System.out.println(s1User.getUpdateTime ());
+        }
+
+        return s1User1;
+
+    }
+
+
 }
