@@ -113,6 +113,11 @@ public class ManagerServiceImpl implements ManagerService {
         return false;
     }
 
+    /**
+     * 查询单条记录
+     * @param id
+     * @return
+     */
     @Override
     public S1User selectOne(int id) {
         Result<Record1<Integer>> fetch = DSL.using (connection).selectOne ().from (S1_USER).where (S1_USER.ID.eq (id)).fetch ();
