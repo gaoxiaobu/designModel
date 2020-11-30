@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import static learn_jooq.gaoxiaobu.generated.tables.S1User.S1_USER;
@@ -54,7 +55,7 @@ public class ManagerServiceImpl implements ManagerService {
 
     /**
      * 保存当前用户信息
-     * @param user
+     * @param user 用户信息
      * @return
      */
     @Override
@@ -98,7 +99,10 @@ public class ManagerServiceImpl implements ManagerService {
 
     @Override
     public List<S1User> s1_userListAndPage(int page, int offSet) {
-        List<S1User> s1Users = DSL.using (connection).select ().from (S1_USER).limit (page, offSet).fetchInto (S1User.class);
+        List<S1User> s1Users = DSL.using (connection)
+                .select ().from (S1_USER)
+                .limit (page, offSet)
+                .fetchInto (S1User.class);
         for (S1User sUser: s1Users) {
             System.out.println(sUser.getId ());
             System.out.println(sUser.getAddress ());
@@ -110,46 +114,48 @@ public class ManagerServiceImpl implements ManagerService {
 
     /**
      * 批量删除
-     * @param ids
+     * @param ids 用户id列表
      * @return
      */
     @Override
     public int deleteDetach(List<Integer> ids) {
-        return 1;
+        int count = 0;
+        for (int id:
+             ids) {
+            DSL.using (connection).delete (S1_USER).where (S1_USER.ID.eq (id)).execute ();
+            count++;
+        }
+        return count;
     }
 
     /**
      * 批量添加
-     * @param s1UserList
+     * @param s1UserList 用户信息列表
      * @return
      */
     @Override
     public boolean insertBatch(List<S1User> s1UserList) {
-        return false;
+        Iterator<S1User> iterator = s1UserList.iterator ();
+        boolean flag = false;
+        if (iterator.hasNext ()){
+            S1User s1User = iterator.next ();
+            int execute = DSL.using (connection).insertInto (S1_USER).values (s1User).execute ();
+            if (execute>0){
+                flag = true;
+            }
+        }
+        return flag;
     }
 
     /**
      * 查询单条记录
-     * @param id
+     * @param id 用户Id
      * @return
      */
     @Override
     public S1User selectOne(int id) {
-        Result<Record1<Integer>> fetch = DSL.using (connection).selectOne ().from (S1_USER).where (S1_USER.ID.eq (id)).fetch ();
-
-        List<S1User> values = (List<S1User>) fetch.getValues (0);
-
-        S1User s1User1 = values.get (0);
-
-        for (S1User s1User:values) {
-            System.out.println(s1User.getUsername ());
-            System.out.println(s1User.getAddress ());
-            System.out.println(s1User.getCreateTime ());
-            System.out.println(s1User.getUpdateTime ());
-        }
-
-        return s1User1;
-
+        List<S1User> s1Users = DSL.using (connection).select ().from (S1_USER).where (S1_USER.ID.eq (id)).fetchInto (S1User.class);
+        return s1Users.get (0);
     }
 
 

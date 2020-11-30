@@ -32,16 +32,20 @@ class GaoxiaobuApplicationTests {
 
         //managerService.updateDetach (new S1User (3,"高小布","gaoxiaobu@com.bonc.cn","帝都",now,now));
 
-        managerService.delete (3);
+        /*managerService.delete (3);*/
 
-        List<S1User> s1Users = managerService.s_1_userList ();
+        /*List<S1User> s1Users = managerService.s_1_userList ();
         for (S1User s1User: s1Users) {
             System.out.println(s1User.getUsername ());
             System.out.println(s1User.getAddress ());
             System.out.println(s1User.getCreateTime ());
             System.out.println(s1User.getUpdateTime ());
             System.out.println(s1User.getEmail ());
-        }
+        }*/
+
+        S1User s1User = managerService.selectOne (1);
+        System.out.println("用户名："+s1User.getUsername ()+"--用户邮箱："+s1User.getEmail ());
+
     }
 
 }
