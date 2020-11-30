@@ -51,6 +51,12 @@
             <artifactId>jooq</artifactId>
             <version>${jooq.version}</version>
         </dependency>
+        <dependency>
+            <groupId>gaoxiaobu</groupId>
+            <artifactId>test_jooq</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
