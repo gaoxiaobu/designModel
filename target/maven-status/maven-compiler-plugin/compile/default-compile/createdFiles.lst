@@ -1,0 +1,10 @@
+com\gaoxiaobu\generated\Library.class
+com\gaoxiaobu\generated\tables\records\Author_Record.class
+com\gaoxiaobu\generated\DefaultCatalog.class
+com\gaoxiaobu\generated\Keys$UniqueKeys0.class
+com\gaoxiaobu\generated\Keys.class
+com\gaoxiaobu\generated\tables\Author_.class
+com\gaoxiaobu\generated\Tables.class
+com\gaoxiaobu\generated\tables\daos\Author_Dao.class
+com\gaoxiaobu\generated\tables\pojos\Author_.class
+com\gaoxiaobu\JooqTestApplication.class
